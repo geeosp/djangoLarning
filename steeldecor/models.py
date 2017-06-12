@@ -14,13 +14,13 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    title = models.CharField(max_length=250, default="")
+    slug = models.SlugField(max_length=250, unique_for_date='publish', null=True)
     author = models.ForeignKey(User, related_name='blog_posts', null=True)
-    body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    body = models.TextField(null=True)
+    publish = models.DateTimeField(default=timezone.now, null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
     objects = models.Manager() # The default manager.
